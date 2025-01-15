@@ -1,3 +1,5 @@
+
+use unicode_segmentation::UnicodeSegmentation;
 fn main() {
     let a = [1,2,3]; //array initialisation
     let mut v: Vec<i32> = Vec::new();  // 'new' keyword will create an empty vector.
@@ -64,6 +66,72 @@ fn main() {
     }
 
     
+
+    
+    //*******************Strings*********************:
+    //In rust strings are stored as UTF-8 encoded types(1,0)
+
+    //Note: In UTF-8, single char can be 1-4 bytes long
+
+    //Creating a String:
+
+    let s1 = String::new(); //defining an empty string
+    let s2 = "Initial String";
+    let s3 = s2.to_string();
+    let s4 = String::from("Alright!");
+
+    //Similar to Vector, a String can also grow and shrink in size:
+
+    let mut s = String::from("foo");
+    s.push_str("bar");  //push_str() is used to append the string 
+    s.push('!');   //push() is used to append at the end of the string
+
+    println!("string is: {:?}", s);
+
+    //we can also use '+' operator to append the string
+
+    let s5 = String::from("Hello");
+    let s6 = String::from("world!");
+    let s7 = s5 + &s6;  //we cannot add both reference, String on the left needs to be owned
+
+    println!("the string s7 is: {:?}", s7);
+
+
+    //we can also concate the strings using 'format' macro.
+    let s8 = String::from("solana!");
+
+    let s9 = format!("{}{}", s8,s6);
+
+    println!("the string s9 is {:?}", s9);
+
+    //Strings can be in three types:
+
+    let hello = String::from("नमस्ते");
+    //1. Bytes
+    //[224,164,168,224,164,174,224,164,184,224,165,141,224,164,164,224,165,135]
+    for b in "नमस्ते".bytes() {
+        println!("{}", b);
+    }
+
+    //2. Scalar values (what RUST considers)
+    // [न,म,स,्,त,े]
+
+    for b in "नमस्ते".chars() {
+        println!("{}", b);
+    }
+
+    //3. Grapheme clusters (human assumptions of chars): there is no direct fn to access grapheme clusters in RUST, we have to impot 'Unicode-segmentation
+    //["न", "म", "स्", "ते"]
+
+    for g in "नमस्ते".graphemes(true) {
+        println!("{}", g);
+    }
+
+
+    //**********************Hashmaps*********************
+
+    
+
 
 }
 
