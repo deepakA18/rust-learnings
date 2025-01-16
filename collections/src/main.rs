@@ -1,5 +1,7 @@
 
 use unicode_segmentation::UnicodeSegmentation;
+
+use std::collections::HashMap;
 fn main() {
     let a = [1,2,3]; //array initialisation
     let mut v: Vec<i32> = Vec::new();  // 'new' keyword will create an empty vector.
@@ -129,7 +131,55 @@ fn main() {
 
 
     //**********************Hashmaps*********************
+    // Hashmaps allow you to store key-value pairs, keys and values could be of any type
+    // Also, it uses a hashing function to determine how to store keys and values in the memory
 
+    //example
+
+    let blue = String::from("blue");
+    let yellow = String::from("yellow");
+
+    let mut scores = HashMap::new(); //Similar to vectors and strings
+
+    scores.insert(blue, 10);  //ownership of blue and yellow is moved here, we are not passing references.
+    scores.insert(yellow, 5);
+
+    let team_name = String::from("blue");
+
+    let score = scores.get(&team_name);   // the 'get' method takes a reference to the key and returns an optional value
+// score if of type option becoz we cannot guarantee it will return or not
+
+    for (key, value) in &scores {
+        println!("{} {}", key, value);
+    }
+
+
+    //***Updating Hashmaps***
+
+
+    let mut score_board = HashMap::new();
+
+    score_board.insert(String::from("blue"), 10);
+    score_board.insert(String::from("blue"), 20);  //Here it will overwrite the value 20 with 10.
+
+    //If don't want to overwrite the existing values:
+    //1. 'entry' enum that represents the value of a given key.
+    scores.entry(String::from("yellow")).or_insert(30);  //if there isn't any entry then insert value 30. if there is entry then do nothing
+    scores.entry(String::from("yellow")).or_insert(40); 
+
+    //***Updating value in Hashmap based on the old value***
+    // 'or_insert()' function returns a mutable reference of a value
+
+    let text = "hello world wonderful world";
+
+    let mut map = HashMap::new();
+
+    for word in text.split_whitespace() {
+        let count = map.entry(word).or_insert(0);
+        *count += 1;
+    }
+
+    println!("{:?}",map);
     
 
 
